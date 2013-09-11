@@ -37,4 +37,15 @@ public class Tree {
 
         apples = new Apple[getAmount()];
     }
+
+    public void shake() {
+        int deleteAmount = ((int)Math.rint(Math.random() * getAmount()));
+        Apple[] newApples;
+
+        setAmount(getAmount() - deleteAmount);
+        newApples = new Apple[getAmount()];
+        System.arraycopy(getApples(), 0, newApples, 0, newApples.length);
+        setApples(newApples);
+    }
+
 }
