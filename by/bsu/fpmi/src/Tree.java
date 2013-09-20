@@ -31,11 +31,22 @@ public class Tree {
         this.apples = apples;
     }
 
-    public void grow() {
-        Random random = new Random();
-        setAmount(random.nextInt(MAX_APPLES_COUNT));
+    public int seedsCount() {
+        int result = 0;
 
+        for (int i = 0; i < apples.length; i++) {
+            result += apples[i].getSeeds();
+        }
+
+        return result;
+    }
+
+    public void grow() {
         apples = new Apple[getAmount()];
+
+        for (int i = 0; i < apples.length; i++) {
+            apples[i] = new Apple();
+        }
     }
 
     public void shake() {
@@ -48,4 +59,8 @@ public class Tree {
         setApples(newApples);
     }
 
+    public void blossom() {
+        Random random = new Random();
+        setAmount(random.nextInt(MAX_APPLES_COUNT));
+    }
 }

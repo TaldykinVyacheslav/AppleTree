@@ -9,12 +9,14 @@ import java.io.*;
  */
 public class Main {
     public static void main(String[] args) {
-        boolean isGrownEver = false;
+        boolean isBlossomed = false;
+        boolean isGrown = false;
         String command = new String();
         Tree tree = new Tree();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("the list of commands:\n"
+                            + "\"blossom\"  - make tree to blossom"
                             + "\"grow\"  - grow a tree with random number of apples \n"
                             + "\"shake\" - shake the tree \n"
                             + "\"exit\"    - exit the program \n");
@@ -28,25 +30,37 @@ public class Main {
                 e.printStackTrace();
             }
 
-            if(command.equals("grow")) {
-                tree.grow();
-                isGrownEver = true;
-                System.out.println("You have grown a tree with " + tree.getAmount() + " apples!");
-            }
-            else if(command.equals("shake")) {
-                if(isGrownEver) {
+            if(command.equals("blossom")){
+                tree.blossom();
+                isGrown = false;
+                isBlossomed = true;
+
+                System.out.println("The tree has blossomed with "
+                                    + tree.getAmount() + " flowers on it!");
+            } else if (command.equals("grow")) {
+                if(isBlossomed) {
+                    tree.grow();
+                    isGrown = true;
+                    isBlossomed = false;
+                    System.out.println("You have grown a tree with "
+                            + tree.getAmount() + " apples with "
+                            + tree.seedsCount() + " seeds!");
+                } else {
+                    System.out.println("The tree has not blossomed yet!");
+                }
+
+            } else if (command.equals("shake")) {
+                if(isGrown) {
                     tree.shake();
                     System.out.println("You have shaken a tree! there are only "
-                            + tree.getAmount() + " apples!");
+                            + tree.getAmount() + " apples with "
+                            + tree.seedsCount() + " seeds!");
+                } else {
+                    System.out.println("You can't shake a tree cause it hasn't grown up yet!");
                 }
-                else {
-                    System.out.println("You can't shake a tree cause you've never grown it up!");
-                }
-            }
-            else if(command.equals("exit")) {
+            } else if (command.equals("exit")) {
                 break;
-            }
-            else {
+            } else {
                 System.out.println("Error! Print correct command!");
             }
         }
